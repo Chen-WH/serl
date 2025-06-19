@@ -18,12 +18,12 @@ from ur10e_sim.mujoco_gym_env import GymRenderingSpec, MujocoGymEnv
 
 _HERE = Path(__file__).parent
 _XML_PATH = _HERE / "xmls" / "arena.xml"
-_PANDA_HOME = np.asarray((0, -0.785, 0, -2.35, 0, 1.57, np.pi / 4))
+_PANDA_HOME = np.asarray((0.3, -1.32, -1.79, -1.63, 1.51, 1.57))
 _CARTESIAN_BOUNDS = np.asarray([[0.2, -0.3, 0], [0.6, 0.3, 0.5]])
 _SAMPLING_BOUNDS = np.asarray([[0.25, -0.25], [0.55, 0.25]])
 
 
-class UR10PickCubeGymEnv(MujocoGymEnv):
+class UR10ePickCubeGymEnv(MujocoGymEnv):
     metadata = {"render_modes": ["rgb_array", "human"]}
 
     def __init__(

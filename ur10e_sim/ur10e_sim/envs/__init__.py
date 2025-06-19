@@ -1,5 +1,5 @@
-from serl.ur10_sim.ur10_sim.envs.ur10_pick_gym_env import UR10PickCubeGymEnv
+from serl.ur10e_sim.ur10e_sim.envs.ur10e_pick_gym_env import UR10ePickCubeGymEnv
 
 __all__ = [
-    "UR10PickCubeGymEnv",
+    "UR10ePickCubeGymEnv",
 ]
