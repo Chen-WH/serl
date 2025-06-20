@@ -6,7 +6,7 @@ import numpy as np
 
 from ur10e_sim import envs
 
-env = envs.UR10PickCubeGymEnv(action_scale=(0.1, 1))
+env = envs.UR10ePickCubeGymEnv(action_scale=(0.1, 1))
 action_spec = env.action_space
 
 

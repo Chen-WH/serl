@@ -34,21 +34,21 @@ from serl_launcher.utils.launcher import (
 )
 from serl_launcher.wrappers.serl_obs_wrappers import SERLObsWrapper
 
-import franka_sim
+import ur10e_sim
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string("env", "PandaPickCubeVision-v0", "Name of environment.")
+flags.DEFINE_string("env", "UR10ePickCubeVision-v0", "Name of environment.")
 flags.DEFINE_string("agent", "drq", "Name of agent.")
 flags.DEFINE_string("exp_name", None, "Name of the experiment for wandb logging.")
 flags.DEFINE_integer("max_traj_length", 1000, "Maximum length of trajectory.")
 flags.DEFINE_integer("seed", 42, "Random seed.")
 flags.DEFINE_bool("save_model", False, "Whether to save model.")
-flags.DEFINE_integer("batch_size", 32, "Batch size.")
+flags.DEFINE_integer("batch_size", 24, "Batch size.")
 flags.DEFINE_integer("critic_actor_ratio", 4, "critic to actor update ratio.")
 
-flags.DEFINE_integer("max_steps", 1000000, "Maximum number of training steps.")
-flags.DEFINE_integer("replay_buffer_capacity", 50000, "Replay buffer capacity.")
+flags.DEFINE_integer("max_steps", 500000, "Maximum number of training steps.")
+flags.DEFINE_integer("replay_buffer_capacity", 25000, "Replay buffer capacity.")
 
 flags.DEFINE_integer("random_steps", 300, "Sample random actions for this many steps.")
 flags.DEFINE_integer("training_starts", 300, "Training starts after this step.")
@@ -108,7 +108,7 @@ def actor(agent: DrQAgent, data_store, env, sampling_rng):
     client.recv_network_callback(update_params)
 
     eval_env = gym.make(FLAGS.env)
-    if FLAGS.env == "PandaPickCubeVision-v0":
+    if FLAGS.env == "UR10ePickCubeVision-v0":
         eval_env = SERLObsWrapper(eval_env)
         eval_env = ChunkingWrapper(eval_env, obs_horizon=1, act_exec_horizon=None)
     eval_env = RecordEpisodeStatistics(eval_env)
@@ -325,9 +325,9 @@ def main(_):
     else:
         env = gym.make(FLAGS.env)
 
-    if FLAGS.env == "PandaPickCube-v0":
+    if FLAGS.env == "UR10ePickCube-v0":
         env = gym.wrappers.FlattenObservation(env)
-    if FLAGS.env == "PandaPickCubeVision-v0":
+    if FLAGS.env == "UR10ePickCubeVision-v0":
         env = SERLObsWrapper(env)
         env = ChunkingWrapper(env, obs_horizon=1, act_exec_horizon=None)
 
